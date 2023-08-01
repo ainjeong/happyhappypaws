@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Paws</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #ff6f69;
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: black;
+            font-size: 27px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #5f5f5f;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .images-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .image-item {
+            margin: 5px;
+        }
+        .image-resize {
+            max-width: 200px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1>Happy Paws🐾</h1>
+<p>We are dedicated to providing love and care for stray animals.</p>
+<p>Contact us for adoption and support.</p>
+<div>
+
+    <div class="images-container">
+        <div th:each="image : ${images}" class="image-item">
+            <img th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="Image" class="image-resize">
+        </div>
+    </div>
+    <h4>"가족을 기다립니다"</h4>
+    <a href="/home" class="btn-enter">Enter</a>
+</div>
+</body>
+</html>
