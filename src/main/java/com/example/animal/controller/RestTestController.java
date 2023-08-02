@@ -34,8 +34,7 @@ public class RestTestController {
         InputStream stream = null;
         String apiUrl = "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?"
                 + "_type=json"
-                + "pageNo=5"
-                + "numOfRows=10"
+                + "&numOfRows=999"
                 + "&serviceKey=P/hL5EXdd/Uh3HtYbHBtZI9PnkTMtbqImGmluwFnOgM/sLoypgqVKpFQ17t8zpHrnqoTMIh2ZJCJ2XOx7QFDnw==";
         URL url = new URL(apiUrl);
         urlConnection = (HttpURLConnection) url.openConnection();
