@@ -1,6 +1,5 @@
 package com.example.animal.controller;
 
-import com.example.animal.dto.AnimalInfo;
 import com.example.animal.service.ImageService;
 import com.example.animal.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;

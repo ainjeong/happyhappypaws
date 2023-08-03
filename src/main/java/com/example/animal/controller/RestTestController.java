@@ -1,16 +1,8 @@
 package com.example.animal.controller;
 
-import com.example.animal.dto.AnimalInfo;
-import com.example.animal.repository.AnimalInfoRepository;
 import com.example.animal.service.TestService;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;

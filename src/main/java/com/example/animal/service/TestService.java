@@ -1,6 +1,6 @@
 package com.example.animal.service;
 
-import com.example.animal.dto.AnimalInfo;
+import com.example.animal.domain.AnimalInfo;
 import com.example.animal.repository.AnimalInfoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -11,10 +11,6 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 

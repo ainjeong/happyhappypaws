@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>board list</h2>
+<table class="table">
+    <thead>
+    <tr>
+    <th scope="col">Bno</th>
+    <th scope="col">Title</th>
+    <th scope="col">Writer</th>
+    <th scope="col">RegDate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dto:${responseDTO.dtoList}">
+        <th scope="row">[[${dto.bno}]]</th>
+    <td>
+    [[${dto.title}]]
+    </td>
+    <td>[[${dto.writer}]]</td>
+    <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <ul>
+        <li th:if="${responseDTO.prev}">
+            <a class="page-link" th:data-num="$responseDTO.start -1}">Previous</a>
+        </li>
+
+        <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+            <li th:class="{responseDTO.page == i}?'page-item active': 'page-item'">
+                <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+            </li>
+        </th:block>
+
+        <li class="page-item" th:if="${responseDTO.next}">
+            <a class="page-link" th:data-num="${responseDTO.end + 1}">Next</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

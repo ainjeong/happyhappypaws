@@ -1,4 +1,4 @@
-package com.example.animal.dto;
+package com.example.animal.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
