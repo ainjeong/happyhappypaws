@@ -6,23 +6,38 @@
 </head>
 <body>
 <h2>board list</h2>
+<div>
+    <form action="/board/search" method="get">
+        <select class="form-select" name="type">
+            <option value="">----</option>
+            <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
+            <option value="c" th:selected="${pageRequestDTO.type == 'c'}">내용</option>
+            <option value="w" th:selected="${pageRequestDTO.type == 'w'}">작성자</option>
+            <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">제목 내용</option>
+            <option value="tcw" th:selected="${pageRequestDTO.type == 'tcw'}">제목 내용 작성자</option>
+        </select>
+        <input type="text" class="for=control" name="keyword" th:value="${pageRequestDTO.keyword}">
+        <button type="submit">Search</button>
+        <button type="reset">Clear</button>
+    </form>
+</div>
+<a href="/board/register">작성하기</a>
+
 <table class="table">
     <thead>
     <tr>
-    <th scope="col">Bno</th>
-    <th scope="col">Title</th>
-    <th scope="col">Writer</th>
-    <th scope="col">RegDate</th>
+        <th scope="col">Bno</th>
+        <th scope="col">Title</th>
+        <th scope="col">Writer</th>
+        <th scope="col">RegDate</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="dto:${responseDTO.dtoList}">
         <th scope="row">[[${dto.bno}]]</th>
-    <td>
-    [[${dto.title}]]
-    </td>
-    <td>[[${dto.writer}]]</td>
-    <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
+        <td>[[${dto.title}]]</td>
+        <td>[[${dto.writer}]]</td>
+        <td>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd')}]]</td>
     </tr>
     </tbody>
 </table>
@@ -30,17 +45,15 @@
 <div>
     <ul>
         <li th:if="${responseDTO.prev}">
-            <a class="page-link" th:data-num="$responseDTO.start -1}">Previous</a>
+            <a th:data-num="${responseDTO.start -1}">Previous</a>
         </li>
-
         <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-            <li th:class="{responseDTO.page == i}?'page-item active': 'page-item'">
-                <a class="page-link" th:data-num="${i}">[[${i}]]</a>
+            <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
+                <a th:data-num="${i}" th:href="@{'/board/list?page=' + ${i}}">[[${i}]]</a>
             </li>
         </th:block>
-
-        <li class="page-item" th:if="${responseDTO.next}">
-            <a class="page-link" th:data-num="${responseDTO.end + 1}">Next</a>
+        <li th:if="${responseDTO.next}">
+            <a th:data-num="${responseDTO.end + 1}">Next</a>
         </li>
     </ul>
 </div>

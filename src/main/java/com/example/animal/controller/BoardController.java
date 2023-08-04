@@ -22,9 +22,9 @@ public class BoardController {
     private final BoardService boardService;
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("board/register")
-    public void registerGET(){
-
+    @GetMapping("/register")
+    public String registerGET(){
+        return "board/register";
     }
 
     @GetMapping("/list")
@@ -32,6 +32,7 @@ public class BoardController {
         PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
     }
+
 
     @PostMapping("/register")
     public String register(@Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){

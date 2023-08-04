@@ -1,5 +1,6 @@
 package com.example.animal.config;
 
+import com.example.animal.security.handler.CustomSocialLoginSuccessHandler;
 import com.example.animal.security.handler.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -40,6 +42,9 @@ public class CustomSecurityConfig {
                         .tokenRepository(persistentTokenRepository())
                         .userDetailsService(userDetailsService)
                         .tokenValiditySeconds(60*60*24*30));
+
+        http.oauth2Login(t->t.loginPage("/member/login")
+                .successHandler(authenticationSuccessHandler()));
         return http.build();
     }
 
@@ -54,6 +59,11 @@ public class CustomSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         log.info("---------------web configure---------------");
         return (web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()));
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new CustomSocialLoginSuccessHandler(passwordEncoder());
     }
 
 

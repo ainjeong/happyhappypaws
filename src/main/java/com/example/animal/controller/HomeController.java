@@ -41,5 +41,10 @@ public class HomeController {
         this.testService = testService;
         this.imageService = imageService;
     }
+    @GetMapping("/list")
+    public String animalList(Model model){
+
+        return "list";
+    }
 
 }

@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <title>Happy Paws</title>
     <style>
+        .login-button-container {
+            display: flex;
+            padding: 20px;
+        }
+
+        .login-button {
+            background-color: #4CAF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
         body {
             background-color: #f8f8f8;
             font-family: Arial, sans-serif;
@@ -33,6 +47,7 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            padding: 40px;
         }
 
         .image-item {
@@ -46,16 +61,27 @@
 </head>
 <body>
 <h1>Happy Paws🐾</h1>
-<p>We are dedicated to providing love and care for stray animals.</p>
-<p>Contact us for adoption and support.</p>
+<div class="login-button-container">
+        <a href="board/list">방명록</a><br>
+    <a href="animal/list">유기 동물 공고</a>
+    <div>
+        <form th:action="@{/member/login}" method="get">
+            <button class="login-button" type="submit">로그인</button>
+        </form>
+        <form th:action="@{/member/join}" method="get">
+            <button class="login-button" type="submit">회원가입</button>
+        </form>
+    </div>
+</div>
+<br>
 <div>
-
     <div class="images-container">
         <div th:each="image : ${images}" class="image-item">
-            <img th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="Image" class="image-resize">
+            <img th:href="@{'animal/list?desertionNo=' + ${no}}" th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="Image" class="image-resize">
         </div>
-    </div>
-    <h4>"가족을 기다립니다"</h4>
+
+    </div>        "가족을 찾습니다"
+
 </div>
 </body>
 </html>

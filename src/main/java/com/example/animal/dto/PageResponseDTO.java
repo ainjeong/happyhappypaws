@@ -35,9 +35,8 @@ public class PageResponseDTO<E> {
         this.total = total;
         this.dtoList = dtoList;
 
-        this.end = (int)(Math.ceil(this.page) / 10.0) * 10; //화면에서의 마지막 번호
-        this.start = this.end - 9;
-
+        this.end = (int) Math.ceil((double) this.page / 10.0)*10;
+        this.start = this.end -9;
         int last = (int)(Math.ceil((total/(double)size))); //데이터 개수를 계산한 마지막 페이지 번호
 
         this.end= end > last ? last : end;

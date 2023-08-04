@@ -11,11 +11,14 @@
  </th:block>
 <form action="/member/login" method="post" th:if="${param.logout == null}">
     id <input type="text" name="username" placeholder="userId">
-    password <input type="text" name="password" placeholder="password">
+    password <input type="password" name="password" placeholder="password">
     <input type="checkbox" name="remember-me">
     <label class="form-check-label">
         자동 로그인
     </label>
+    <div>
+        <a href="/oauth2/authorization/kakao">KAKAO</a>
+    </div>
     <button type="submit">LOGIN</button>
 </form>
 </body>
