@@ -15,5 +15,34 @@
         <option value="기타" >기타</option>
     </select>
 </div>
+
+
+
+<tbody>
+<tr th:each="dto:${responseDTO.dtoList}">
+    <td>[[${dto.title}]]</td>
+    <td>[[${dto.writer}]]</td>
+</tr>
+</tbody>
+
+
+
+
+
+<div>
+    <ul>
+        <li th:if="${responseDTO.prev}">
+            <a th:data-num="${responseDTO.start -1}">Previous</a>
+        </li>
+        <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+            <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
+                <a th:data-num="${i}" th:href="@{'/animal/list?page=' + ${i}}">[[${i}]]</a>
+            </li>
+        </th:block>
+        <li th:if="${responseDTO.next}">
+            <a th:data-num="${responseDTO.end + 1}">Next</a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

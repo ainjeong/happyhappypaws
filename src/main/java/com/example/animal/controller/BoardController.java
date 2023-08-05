@@ -28,9 +28,10 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO, Model model){
+    public String list(PageRequestDTO pageRequestDTO, Model model){
         PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
+        return "board/list";
     }
 
 
