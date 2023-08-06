@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        /* 이미지 크기 조정 스타일 */
+        .thumbnail {
+            max-width: 200px; /* 이미지의 최대 너비를 200px로 지정 */
+            max-height: 200px; /* 이미지의 최대 높이를 200px로 지정 */
+        }
+    </style>
 </head>
 <body>
 
@@ -20,8 +27,9 @@
 
 <tbody>
 <tr th:each="dto:${responseDTO.dtoList}">
-    <td>[[${dto.title}]]</td>
-    <td>[[${dto.writer}]]</td>
+    <td>[[${dto.kindCd}]]</td>
+    <td>[[${dto.age}]]</td>
+    <td><img th:src="@{__${dto.popfile}__}" alt="이미지" class="thumbnail"></td>
 </tr>
 </tbody>
 

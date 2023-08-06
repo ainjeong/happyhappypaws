@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -51,5 +52,12 @@ public class BoardController {
     public void read(Long bno, PageRequestDTO pageRequestDTO, Model model){
         BoardDTO boardDTO = boardService.readOne(bno);
         model.addAttribute("dto", boardDTO);
+    }
+
+    @GetMapping("/read")
+    public void readOne(Long bno, PageRequestDTO pageRequestDTO, Model model){
+        BoardDTO boardDTO = boardService.readOne(bno);
+        model.addAttribute("dto", boardDTO);
+
     }
 }

@@ -24,6 +24,7 @@ public class AnimalController {
     public String animalGET(PageRequestDTO pageRequestDTO, Model model){
         PageResponseDTO<AnimalInfo> responseDTO = animalService.list(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
+
         return "animal/list";
 
     }
