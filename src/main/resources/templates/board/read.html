@@ -5,7 +5,8 @@
     <title>Board read</title>
 </head>
 <body>
-<input type="text" th:value="${dto.bno}" readonly>
+<form action="/board/remove" method="post">
+<input type="text" name="bno" th:value="${dto.bno}" readonly>
 <input type="text" th:value="${dto.title}" readonly>
 <textarea readonly>[[${dto.content}]]</textarea>
 <input type="text" th:value="${dto.writer}" readonly>
@@ -19,7 +20,9 @@
     <a th:href="|@{/board/modify(bno=${dto.bno})}&${link}|">
         <button type="button">Modify</button>
     </a>
-</div>
+    <button type="submit">remove</button>
 
+</div>
+</form>
 </body>
 </html>

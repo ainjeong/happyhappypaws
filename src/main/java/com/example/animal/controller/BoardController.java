@@ -85,7 +85,13 @@ public class BoardController {
     }
 
     @PostMapping("/modify")
-    public String modify(PageRequestDTO pageRequestDTO, BoardDTO boardDTO, RedirectAttributes redirectAttributes){
+    public String modify(PageRequestDTO pageRequestDTO, @Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if(bindingResult.hasErrors()){
+            String link = pageRequestDTO.getLink();
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("bno", boardDTO.getBno());
+            return "redirect:/board/modify?"+link;
+        }
 
         boardService.modify(boardDTO);
         redirectAttributes.addFlashAttribute("result", "modified");

@@ -5,20 +5,17 @@
     <title>Modify</title>
 </head>
 <body>
-<input type="text" th:value="${dto.bno}" readonly>
-<input type="text" th:value="${dto.title}">
-<textarea>[[${dto.content}]]</textarea>
-<input type="text" th:value="${dto.writer}" readonly>
+<form action="/board/modify" method="post">
+    <input type="text" name="bno" th:value="${dto.bno}" readonly>
+<input type="text" name="title" th:value="${dto.title}">
+<textarea name="content"> [[${dto.content}]]</textarea>
+<input type="text" th:value="${dto.writer}" name="writer" readonly>
 <input type="text" th:value="${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
 <input type="text" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
 <a th:href="|@{/board/list}?${link}|">
     <button type="button">List</button>
 </a>
-<a th:href="@{/board/modify(bno=${dto.bno})}" th:method="post">
-    <button type="button">Modify</button>
-</a>
-    <a th:href="|@{/board/remove(bno=${dto.bno})}&${link}|">
-        <button type="button">Remove</button>
-</a>
+    <button type="submit">Modify</button>
+</form>
 </body>
 </html>
