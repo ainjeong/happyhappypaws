@@ -6,9 +6,6 @@
 </head>
 <body>
  <h1>Login Page</h1>
- <th:block th:if="${param.logout != null}">
-     <h1>Logout.........</h1>
- </th:block>
 <form action="/member/login" method="post" th:if="${param.logout == null}">
     id <input type="text" name="username" placeholder="userId">
     password <input type="password" name="password" placeholder="password">

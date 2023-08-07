@@ -45,6 +45,8 @@ public class CustomSecurityConfig {
 
         http.oauth2Login(t->t.loginPage("/member/login")
                 .successHandler(authenticationSuccessHandler()));
+        http.logout(t->t.logoutUrl("/member/logout")
+                .logoutSuccessUrl("/"));
         return http.build();
     }
 

@@ -2,6 +2,7 @@ package com.example.animal.controller;
 
 import com.example.animal.service.ImageService;
 import com.example.animal.service.TestService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ public class HomeController {
     private final ImageService imageService;
 
     @GetMapping("/")
-    public String index(Model model) throws IOException {
+    public String index(Model model, HttpServletRequest request) throws IOException {
         List<String> filenames = testService.getRandomFiveEntities();
         List<String> encodedImages = new ArrayList<>();
         for(int i = 0; i <= 2; i++){
@@ -32,6 +33,7 @@ public class HomeController {
             }
         }
         model.addAttribute("images", encodedImages);
+        model.addAttribute("isUserInRoleUser", request.isUserInRole("ROLE_USER"));
 
         return "index";
     }

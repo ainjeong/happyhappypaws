@@ -33,4 +33,10 @@ public class MemberServiceImpl implements MemberService{
 
         memberRepository.save(member);
     }
+
+    @Override
+    public Member findById(String id) {
+        Member member = memberRepository.findById(id).get();
+        return member;
+    }
 }

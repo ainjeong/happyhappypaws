@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Happy Paws</title>
     <style>
+
+
         .login-button-container {
-            display: flex;
-            padding: 20px;
+            padding: 20px 40px 0 0; /* Adjust padding as needed */
         }
 
         .login-button {
@@ -17,6 +18,8 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
+            margin-left: 10px; /* Add margin for spacing between buttons */
+            display: inline-block; /* Display buttons inline */
         }
         body {
             background-color: #f8f8f8;
@@ -57,22 +60,44 @@
             max-width: 200px;
             max-height: 200px;
         }
+        .header-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .header-link {
+            margin: 0 10px;
+            font-size: 18px;
+            color: #4CAF;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <h1>Happy Paws🐾</h1>
-<a href="board/list">방명록</a><br>
-<a href="animal/list">유기 동물 공고</a>
-<div class="login-button-container">
-    <div>
-        <form th:action="@{/member/login}" method="get">
-            <button class="login-button" type="submit">로그인</button>
-        </form>
-        <form th:action="@{/member/join}" method="get">
-            <button class="login-button" type="submit">회원가입</button>
-        </form>
-    </div>
+<div th:if="${isUserInRoleUser}">
+    <!-- Show logout button if user is authenticated -->
+    <form th:action="@{/member/info}" method="get">
+        <button type="submit">내 정보</button>
+    </form>
+    <form th:action="@{/member/logout}" method="post">
+        <button type="submit">로그아웃</button>
+    </form>
 </div>
+<div th:unless="${isUserInRoleUser}">
+    <!-- Show login link if user is not authenticated -->
+    <a th:href="@{/member/login}">로그인</a>
+    <!-- Show join link if user is not authenticated -->
+    <a th:href="@{/member/join}">회원가입</a>
+</div>
+
+<div class="header-links">
+    <a href="animal/list" class="header-link">유기 동물 공고</a>
+    <a href="board/list" class="header-link">자유 게시판</a>
+</div>
+
+
 <br>
 <div>
     <div class="images-container">

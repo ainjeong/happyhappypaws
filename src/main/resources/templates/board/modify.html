@@ -2,24 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Board read</title>
+    <title>Modify</title>
 </head>
 <body>
 <input type="text" th:value="${dto.bno}" readonly>
-<input type="text" th:value="${dto.title}" readonly>
-<textarea readonly>[[${dto.content}]]</textarea>
+<input type="text" th:value="${dto.title}">
+<textarea>[[${dto.content}]]</textarea>
 <input type="text" th:value="${dto.writer}" readonly>
 <input type="text" th:value="${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
 <input type="text" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
 <a th:href="|@{/board/list}?${link}|">
-<button type="button">List</button>
+    <button type="button">List</button>
 </a>
-<div th:if="${samewriter}">
-    <!-- Show logout button if user is authenticated -->
-    <a th:href="|@{/board/modify(bno=${dto.bno})}&${link}|">
-        <button type="button">Modify</button>
-    </a>
-</div>
-
+<a th:href="@{/board/modify(bno=${dto.bno})}" th:method="post">
+    <button type="button">Modify</button>
+</a>
+    <a th:href="|@{/board/remove(bno=${dto.bno})}&${link}|">
+        <button type="button">Remove</button>
+</a>
 </body>
 </html>

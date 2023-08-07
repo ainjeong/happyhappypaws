@@ -1,12 +1,18 @@
 package com.example.animal.controller;
 
+import com.example.animal.domain.Member;
 import com.example.animal.dto.BoardDTO;
 import com.example.animal.dto.PageRequestDTO;
 import com.example.animal.dto.PageResponseDTO;
 import com.example.animal.service.BoardService;
+import com.example.animal.service.BoardServiceImpl;
+import com.example.animal.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,15 +27,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final MemberService memberService;
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/register")
-    public String registerGET(){
+    public String registerGET(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String id = authentication.getName();
+            Member member = memberService.findById(id);
+            model.addAttribute("member", member);
+        }
         return "board/register";
     }
 
     @GetMapping("/list")
-    public String list(PageRequestDTO pageRequestDTO, Model model){
+    public String list(PageRequestDTO pageRequestDTO, Model model) {
         PageResponseDTO<BoardDTO> responseDTO = boardService.list(pageRequestDTO);
         model.addAttribute("responseDTO", responseDTO);
         return "board/list";
@@ -37,27 +50,54 @@ public class BoardController {
 
 
     @PostMapping("/register")
-    public String register(@Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-        if(bindingResult.hasErrors()){
+    public String register(@Valid BoardDTO boardDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/board/register";
         }
-        Long bno = boardService.register(boardDTO);
-        redirectAttributes.addFlashAttribute("result", bno);
-        return "redirect:/board/list";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String id = authentication.getName();
+            boardDTO.setWriter(id);
+
+            Long bno = boardService.register(boardDTO);
+            redirectAttributes.addFlashAttribute("result", bno);
+        }
+            return "redirect:/board/list";
+
+
     }
+
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping({"/read", "/modify"})
     public void read(Long bno, PageRequestDTO pageRequestDTO, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         BoardDTO boardDTO = boardService.readOne(bno);
+        if (authentication != null && authentication.isAuthenticated()) {
+            String id = authentication.getName();
+            if (id.equals(boardDTO.getWriter())) {
+                model.addAttribute("samewriter", true);
+            }
+        }
         model.addAttribute("dto", boardDTO);
     }
 
-    @GetMapping("/read")
-    public void readOne(Long bno, PageRequestDTO pageRequestDTO, Model model){
-        BoardDTO boardDTO = boardService.readOne(bno);
-        model.addAttribute("dto", boardDTO);
+    @PostMapping("/modify")
+    public String modify(PageRequestDTO pageRequestDTO, BoardDTO boardDTO, RedirectAttributes redirectAttributes){
 
+        boardService.modify(boardDTO);
+        redirectAttributes.addFlashAttribute("result", "modified");
+        redirectAttributes.addAttribute("bno", boardDTO.getBno());
+        return "redirect:/board/read";
     }
+
+    @PostMapping("/remove")
+    public String remove(Long bno, RedirectAttributes redirectAttributes){
+        boardService.remove(bno);
+        redirectAttributes.addFlashAttribute("result", "removed");
+        return "redirect:/board/list";
+    }
+
 }
