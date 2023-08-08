@@ -2,55 +2,112 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>유기동물 공고</title>
     <style>
-        /* 이미지 크기 조정 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .tableSearch {
+            margin-bottom: 20px;
+        }
         .thumbnail {
-            max-width: 200px; /* 이미지의 최대 너비를 200px로 지정 */
-            max-height: 200px; /* 이미지의 최대 높이를 200px로 지정 */
+            max-width: 200px;
+            max-height: 200px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .pagination ul {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            list-style: none;
+        }
+        .pagination a {
+            display: block;
+            padding: 5px 10px;
+            margin: 0 2px;
+            text-align: center;
+            background-color: #f2f2f2;
+            text-decoration: none;
+            color: #333;
+        }
+        .pagination a.active {
+            background-color: #007BFF;
+            color: #fff;
         }
     </style>
 </head>
 <body>
 
-<div class="tableSearch">
-    <select name="s_board_type1"  class="Wid10 mWid25">
-        <option value=""  selected >::종류::</option>
-        <option value="개" >개</option>
-        <option value="고양이" >고양이</option>
-        <option value="길고양이" >길고양이</option>
-        <option value="기타" >기타</option>
-    </select>
-</div>
+<div class="container">
+    <h1>유기동물 공고</h1><h3>이미지를 클릭하세요</h3>
 
+    <div class="tableSearch">
+        <select name="s_board_type1" class="Wid10 mWid25">
+            <option value="" selected>::종류::</option>
+            <option value="개">개</option>
+            <option value="고양이">고양이</option>
+            <option value="길고양이">길고양이</option>
+            <option value="기타">기타</option>
+        </select>
+    </div>
 
+    <table>
+        <thead>
+        <tr>
+            <th>이미지</th>
+            <th>종류</th>
+            <th>나이</th>
+            <th>성별</th>
+        </tr>
+        </thead>
+        <tbody th:with="link = ${pageRequestDTO.getLink()}">
+        <tr th:each="dto: ${responseDTO.dtoList}">
+            <td>
+                <a th:href="|@{/animal/read(desertionNo =${dto.desertionNo})}&${link}|">
+                <img th:src="@{__${dto.popfile}__}" alt="이미지" class="thumbnail">
+                </a>
+            </td>
+            <td th:text="${dto.kindCd}"></td>
+            <td th:text="${dto.age}"></td>
+            <td th:text="${dto.sexCd}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-<tbody>
-<tr th:each="dto:${responseDTO.dtoList}">
-    <td>[[${dto.kindCd}]]</td>
-    <td>[[${dto.age}]]</td>
-    <td><img th:src="@{__${dto.popfile}__}" alt="이미지" class="thumbnail"></td>
-</tr>
-</tbody>
-
-
-
-
-
-<div>
-    <ul>
-        <li th:if="${responseDTO.prev}">
-            <a th:data-num="${responseDTO.start -1}">Previous</a>
-        </li>
-        <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-            <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
-                <a th:data-num="${i}" th:href="@{'/animal/list?page=' + ${i}}">[[${i}]]</a>
+    <div class="pagination">
+        <ul>
+            <li th:if="${responseDTO.prev}">
+                <a th:data-num="${responseDTO.start - 1}" th:href="@{'/animal/list?page=' + ${responseDTO.start - 1}}">Previous</a>
             </li>
-        </th:block>
-        <li th:if="${responseDTO.next}">
-            <a th:data-num="${responseDTO.end + 1}">Next</a>
-        </li>
-    </ul>
+            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
+                <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
+                    <a th:data-num="${i}" th:href="@{'/animal/list?page=' + ${i}}">[[${i}]]</a>
+                </li>
+            </th:block>
+            <li th:if="${responseDTO.next}">
+                <a th:data-num="${responseDTO.end + 1}" th:href="@{'/animal/list?page=' + ${responseDTO.end + 1}}">Next</a>
+            </li>
+        </ul>
+    </div>
+
+
 </div>
+
 </body>
 </html>

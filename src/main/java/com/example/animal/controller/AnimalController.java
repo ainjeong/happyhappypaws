@@ -28,4 +28,11 @@ public class AnimalController {
         return "animal/list";
 
     }
+
+    @GetMapping("/read")
+    public String animalOneGET(String desertionNo, Model model){
+        AnimalInfo animalInfo = animalService.readOne(desertionNo);
+        model.addAttribute("animal", animalInfo);
+        return "animal/read";
+    }
 }

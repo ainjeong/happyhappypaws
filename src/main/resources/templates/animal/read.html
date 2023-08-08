@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>동물 상세 보기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .thumbnail {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            margin: 0 auto;
+        }
+        .animal-info {
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>[[${animal.kindCd}]]</h1>
+    <img th:src="@{__${animal.popfile}__}" alt="이미지" class="thumbnail">
+    <div class="animal-info">
+        <p><strong>발견 날짜:</strong> [[${animal.happenDt}]]</p>
+        <p><strong>발견 장소:</strong> [[${animal.happenPlace}]]</p>
+        <p><strong>종류:</strong> [[${animal.kindCd}]]</p>
+        <p><strong>색깔:</strong> [[${animal.colorCd}]]</p>
+        <p><strong>나이:</strong> [[${animal.age}]]</p>
+        <p><strong>몸무게:</strong> [[${animal.weight}]]</p>
+        <p><strong>공고 번호:</strong> [[${animal.noticeNo}]]</p>
+        <p><strong>공고 시작:</strong> [[${animal.noticeSdt}]]</p>
+        <p><strong>공고 종료:</strong> [[${animal.noticeEdt}]]</p>
+        <p><strong>상태:</strong> [[${animal.processState}]]</p>
+        <p><strong>성별:</strong> [[${animal.sexCd}]]</p>
+        <p><strong>중성화 여부:</strong> [[${animal.neuterYn}]]</p>
+        <p><strong>특이점:</strong> [[${animal.specialMark}]]</p>
+        <p><strong>보호소:</strong> [[${animal.careNm}]]</p>
+        <p><strong>보호소 연락처:</strong> [[${animal.careTel}]]</p>
+        <p><strong>보호소 위치:</strong> [[${animal.careAddr}]]</p>
+        <p><strong>위치:</strong> [[${animal.careAddr}]]</p>
+        <p><strong>보호자 이름:</strong> [[${animal.chargeNm}]]</p>
+        <p><strong>보호자 연락처:</strong> [[${animal.officetel}]]</p>
+    </div>
+    <a href="javascript:history.back()" class="back-button">뒤로가기</a>
+    <a href="">관심 동물 추가</a>
+</div>
+</body>
+</html>

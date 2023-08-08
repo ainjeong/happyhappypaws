@@ -3,6 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .pagination ul {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            list-style: none;
+        }
+        .pagination a {
+            display: block;
+            padding: 5px 10px;
+            margin: 0 2px;
+            text-align: center;
+            background-color: #f2f2f2;
+            text-decoration: none;
+            color: #333;
+        }
+        .pagination a.active {
+            background-color: #007BFF;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 <h2>board list</h2>
@@ -44,10 +65,10 @@
     </tbody>
 </table>
 
-<div>
+<div class="pagination">
     <ul>
         <li th:if="${responseDTO.prev}">
-            <a th:data-num="${responseDTO.start -1}">Previous</a>
+            <a th:data-num="${responseDTO.start - 1}" th:href="@{'/board/list?page=' + ${responseDTO.start - 1}}">Previous</a>
         </li>
         <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
             <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
@@ -55,9 +76,10 @@
             </li>
         </th:block>
         <li th:if="${responseDTO.next}">
-            <a th:data-num="${responseDTO.end + 1}">Next</a>
+            <a th:data-num="${responseDTO.end + 1}" th:href="@{'/board/list?page=' + ${responseDTO.end + 1}}">Next</a>
         </li>
     </ul>
 </div>
+
 </body>
 </html>
