@@ -5,6 +5,7 @@ import com.example.animal.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,12 +35,13 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
+    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes, Model model){
         try{
             memberService.join(memberJoinDTO);
         }catch (MemberService.MidExistException e){
-            redirectAttributes.addFlashAttribute("error", "id");
-            return "redirect:/member/join";
+          redirectAttributes.addFlashAttribute("error", "id");
+          //  model.addAttribute("error", "id");
+            return "redirect:/member/join?error=id";
         }
         redirectAttributes.addFlashAttribute("result", "success");
         return "redirect:/member/login";

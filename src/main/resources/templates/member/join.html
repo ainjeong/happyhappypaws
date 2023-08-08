@@ -2,25 +2,106 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Join</title>
+    <title>회원 가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            margin: 0;
+            padding: 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-<h2>join</h2>
-<form id="registerForm" action="/member/join" method="post">
-  id<input type="text" name="id">
-  email<input type="email" name="email">
-    nickname<input type="text" name="name">
-  password<input type="password" name="password">
+<div class="container">
+    <h2>회원 가입</h2>
+    <form id="registerForm" action="/member/join" method="post">
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" id="id" name="id">
+            <div class="error-message" id="error-message"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="name">Nickname</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="button-group">
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+</div>
 
-  <button type="submit">submit</button>
-  <button type="reset">reset</button>
-</form>
-</body>
-</html>
 <script>
-    const error = [[${error}]]
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
 
-    if(error && error === 'id'){
-        alert("이미 존재하는 id입니다.")
+    if (error === 'id') {
+        document.getElementById('error-message').textContent = "이미 존재하는 아이디입니다.";
     }
 </script>
+</body>
+</html>

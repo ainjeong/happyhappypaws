@@ -75,6 +75,7 @@
     </style>
 </head>
 <body>
+<header>
 <h1>Happy Paws🐾</h1>
 <div th:if="${isUserInRoleUser}">
     <!-- Show logout button if user is authenticated -->
@@ -91,14 +92,15 @@
     <!-- Show join link if user is not authenticated -->
     <a th:href="@{/member/join}">회원가입</a>
 </div>
-
+<nav>
 <div class="header-links">
     <a href="animal/list" class="header-link">유기 동물 공고</a>
     <a href="board/list" class="header-link">자유 게시판</a>
 </div>
+</nav>
+</header>
 
 
-<br>
 <div>
     <div class="images-container">
         <div th:each="image : ${images}" class="image-item">

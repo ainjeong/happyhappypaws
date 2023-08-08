@@ -2,21 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="checkbox"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
 </head>
 <body>
- <h1>Login Page</h1>
-<form action="/member/login" method="post" th:if="${param.logout == null}">
-    id <input type="text" name="username" placeholder="userId">
-    password <input type="password" name="password" placeholder="password">
-    <input type="checkbox" name="remember-me">
-    <label class="form-check-label">
-        자동 로그인
-    </label>
-    <div>
-        <a href="/oauth2/authorization/kakao">KAKAO</a>
-    </div>
-    <button type="submit">LOGIN</button>
-</form>
+<div class="container">
+    <h1>Login Page</h1>
+    <form action="/member/login" method="post" th:if="${param.logout == null}">
+        <label for="username">ID</label>
+        <input type="text" id="username" name="username" placeholder="Username">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password">
+        <input type="checkbox" id="remember-me" name="remember-me">
+        <label for="remember-me">자동 로그인</label>
+        <div>
+            <a href="/oauth2/authorization/kakao">KAKAO 로그인</a>
+        </div>
+        <button type="submit">로그인</button>
+    </form>
+</div>
 </body>
 </html>
