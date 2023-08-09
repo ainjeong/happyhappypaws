@@ -63,7 +63,7 @@ public class BoardController {
             Long bno = boardService.register(boardDTO);
             redirectAttributes.addFlashAttribute("result", bno);
         }
-            return "redirect:/board/list";
+        return "redirect:/board/list";
 
 
     }

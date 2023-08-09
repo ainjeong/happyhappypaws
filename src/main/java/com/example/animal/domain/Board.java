@@ -3,6 +3,8 @@ package com.example.animal.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -27,4 +29,5 @@ public class Board extends BaseEntity{
         this.title = title;
         this.content = content;
     }
+
 }
