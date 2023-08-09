@@ -74,21 +74,20 @@ public class TestService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<String> getRandomFiveEntities() {
+    public List<AnimalInfo> getRandomFiveEntities() {
         try {
             String jpql = "SELECT e FROM AnimalInfo e ORDER BY RAND()";
             Query query = entityManager.createQuery(jpql);
             query.setMaxResults(3);
             List<AnimalInfo> randomEntities = query.getResultList();
-            List<String> filenames = randomEntities.stream()
-                    .map(AnimalInfo::getPopfile)
-                    .collect(Collectors.toList());
-            return filenames;
+
+            return randomEntities;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
 
 
 }

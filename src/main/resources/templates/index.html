@@ -103,8 +103,11 @@
 
 <div>
     <div class="images-container">
-        <div th:each="image : ${images}" class="image-item">
-            <img th:href="@{'animal/list?desertionNo=' + ${no}}" th:src="@{'data:image/jpeg;base64,' + ${image}}" alt="Image" class="image-resize">
+
+        <div th:each="item : ${combinedList}" class="image-item">
+            <a th:href="@{'animal/read?desertionNo=' + ${item.right}}">
+                <img th:src="@{'data:image/jpeg;base64,' + ${item.left}}" alt="Image" class="image-resize">
+            </a>
         </div>
 
     </div>        "가족을 찾습니다"
