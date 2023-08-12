@@ -1,21 +1,28 @@
 package com.example.animal.controller;
 
 import com.example.animal.domain.AnimalInfo;
+import com.example.animal.domain.Board;
 import com.example.animal.domain.Like;
 import com.example.animal.domain.Member;
 import com.example.animal.dto.MemberJoinDTO;
+import com.example.animal.service.BoardService;
 import com.example.animal.service.ImageService;
 import com.example.animal.service.LikeService;
 import com.example.animal.service.MemberService;
 import com.nimbusds.jose.util.Pair;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -34,6 +41,8 @@ public class MemberController {
     private final LikeService likeService;
     private final ImageService imageService;
 
+   @Autowired
+   PasswordEncoder passwordEncoder;
     @GetMapping("/login")
     public void loginGET(String error, String logout){
         log.info("login get................");
@@ -105,4 +114,33 @@ public class MemberController {
 
         return "member/info";
     }
+
+    @GetMapping("/delete")
+    public String deleteGET(Authentication auth, Model model){
+        String id = auth.getName();
+        Member member = memberService.findById(id);
+        model.addAttribute("member", member);
+        return "member/delete";
+    }
+
+    @PostMapping("/delete")
+    public String deletePOST(@RequestParam String password, Authentication auth, RedirectAttributes redirectAttributes){
+        String id = auth.getName();
+        Member member = memberService.findById(id);
+
+        if (member != null && passwordEncoder.matches(password, member.getPassword())) {
+            // 비밀번호가 일치하는 경우 회원 삭제 처리
+            memberService.deleteMember(member.getId());
+
+            return "redirect:/member/logout";
+        } else {
+            redirectAttributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+            return "/member/deleteError";
+        }
+
+
+    }
+
+
+
 }

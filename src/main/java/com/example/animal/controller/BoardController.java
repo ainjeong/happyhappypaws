@@ -70,7 +70,7 @@ public class BoardController {
 
 
 
-    @PreAuthorize("isAuthenticated()")
+  @PreAuthorize("isAuthenticated()")
     @GetMapping({"/read", "/modify"})
     public void read(Long bno, PageRequestDTO pageRequestDTO, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

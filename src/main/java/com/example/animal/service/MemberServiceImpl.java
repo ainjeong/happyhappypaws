@@ -20,6 +20,12 @@ public class MemberServiceImpl implements MemberService{
 
 
     @Override
+    public void deleteMember(String id) {
+        Member member = memberRepository.findById(id).get();
+        memberRepository.delete(member);
+    }
+
+    @Override
     public void join(MemberJoinDTO memberJoinDTO) throws MidExistException {
         String id = memberJoinDTO.getId();
         boolean exist = memberRepository.existsById(id);

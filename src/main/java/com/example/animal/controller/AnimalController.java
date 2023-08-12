@@ -38,17 +38,26 @@ public class AnimalController {
     }
 
     @GetMapping("/animal/read")
-    public String animalOneGET(String desertionNo, Model model, Authentication auth){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String id = auth.getName();
+    public String animalOneGET(String desertionNo, Model model, Authentication authentication){
+        if (authentication == null){
+            AnimalInfo animalInfo = animalService.readOne(desertionNo);
+            model.addAttribute("animal", animalInfo);
+            model.addAttribute("isLiked", null);
+            return "animal/read";
+        }else{
+            String id = authentication.getName();
             Member member = memberService.findById(id);
+            AnimalInfo animalInfo = animalService.readOne(desertionNo);
+            boolean isLiked = likeService.isLikeExists(member, animalInfo);
+            model.addAttribute("isLiked", isLiked);
+            model.addAttribute("animal", animalInfo);
+            return "animal/read";
+        }
+        }
 
-        AnimalInfo animalInfo = animalService.readOne(desertionNo);
-        boolean isLiked = likeService.isLikeExists(member, animalInfo);
-        model.addAttribute("isLiked", isLiked);
-        model.addAttribute("animal", animalInfo);
-        return "animal/read";
+
+
     }
 
 
-}
+
