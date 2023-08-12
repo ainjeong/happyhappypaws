@@ -14,5 +14,4 @@ public class MemberJoinDTO {
     @NotEmpty
     private String name;
     private boolean del;
-    private boolean sosicl;
 }

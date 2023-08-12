@@ -1,6 +1,5 @@
 package com.example.animal.config;
 
-import com.example.animal.security.handler.CustomSocialLoginSuccessHandler;
 import com.example.animal.security.handler.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -43,8 +42,7 @@ public class CustomSecurityConfig {
                         .userDetailsService(userDetailsService)
                         .tokenValiditySeconds(60*60*24*30));
 
-        http.oauth2Login(t->t.loginPage("/member/login")
-                .successHandler(authenticationSuccessHandler()));
+
         http.logout(t->t.logoutUrl("/member/logout")
                 .logoutSuccessUrl("/"));
         return http.build();
@@ -63,10 +61,7 @@ public class CustomSecurityConfig {
         return (web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations()));
     }
 
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler(){
-        return new CustomSocialLoginSuccessHandler(passwordEncoder());
-    }
+
 
 
 

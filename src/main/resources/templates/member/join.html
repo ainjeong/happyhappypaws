@@ -71,27 +71,30 @@
 <div class="container">
     <h2>회원 가입</h2>
     <form id="registerForm" action="/member/join" method="post">
+        <fieldset>
+            <legend>사용자 정보</legend>
         <div class="form-group">
             <label for="id">ID</label>
-            <input type="text" id="id" name="id">
+            <input type="text" id="id" name="id" autofocus required>
             <div class="error-message" id="error-message"></div>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" required>
         </div>
         <div class="form-group">
             <label for="name">Nickname</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" required>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" required>
         </div>
         <div class="button-group">
             <button type="submit">Submit</button>
             <button type="reset">Reset</button>
         </div>
+        </fieldset>
     </form>
 </div>
 

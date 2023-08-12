@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
     @EntityGraph(attributePaths = "roleSet")
-    @Query("select m from Member m where m.id = :id and m.social =  false")
+    @Query("select m from Member m where m.id = :id")
     Optional<Member> getWithRoles(@Param("id") String id);
 
     @EntityGraph(attributePaths = "roleSet")

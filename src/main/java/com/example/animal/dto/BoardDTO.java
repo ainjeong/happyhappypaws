@@ -1,6 +1,7 @@
 package com.example.animal.dto;
 
 import com.example.animal.domain.Board;
+import com.example.animal.domain.Member;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,9 @@ public class BoardDTO {
     private String writer;
     private LocalDateTime regDate;
     private LocalDateTime modDate;
+
+    private Member member;
+    private Board board;
 
 
 }

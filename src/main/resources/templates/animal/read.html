@@ -25,12 +25,41 @@
             margin: 0 auto;
         }
         .animal-info {
-            margin-top: 20px;
-            line-height: 1.6;
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .animal-info th,
+        .animal-info td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .animal-info th {
+            text-align: left;
+            background-color: #f2f2f2;
         }
         h1 {
             text-align: center;
             margin-bottom: 20px;
+        }
+        .back-button,
+        .add-animal-button,
+        .leave-inquiry-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .back-button:hover,
+        .add-animal-button:hover,
+        .leave-inquiry-button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -38,29 +67,156 @@
 <div class="container">
     <h1>[[${animal.kindCd}]]</h1>
     <img th:src="@{__${animal.popfile}__}" alt="이미지" class="thumbnail">
-    <div class="animal-info">
-        <p><strong>발견 날짜:</strong> [[${animal.happenDt}]]</p>
-        <p><strong>발견 장소:</strong> [[${animal.happenPlace}]]</p>
-        <p><strong>종류:</strong> [[${animal.kindCd}]]</p>
-        <p><strong>색깔:</strong> [[${animal.colorCd}]]</p>
-        <p><strong>나이:</strong> [[${animal.age}]]</p>
-        <p><strong>몸무게:</strong> [[${animal.weight}]]</p>
-        <p><strong>공고 번호:</strong> [[${animal.noticeNo}]]</p>
-        <p><strong>공고 시작:</strong> [[${animal.noticeSdt}]]</p>
-        <p><strong>공고 종료:</strong> [[${animal.noticeEdt}]]</p>
-        <p><strong>상태:</strong> [[${animal.processState}]]</p>
-        <p><strong>성별:</strong> [[${animal.sexCd}]]</p>
-        <p><strong>중성화 여부:</strong> [[${animal.neuterYn}]]</p>
-        <p><strong>특이점:</strong> [[${animal.specialMark}]]</p>
-        <p><strong>보호소:</strong> [[${animal.careNm}]]</p>
-        <p><strong>보호소 연락처:</strong> [[${animal.careTel}]]</p>
-        <p><strong>보호소 위치:</strong> [[${animal.careAddr}]]</p>
-        <p><strong>위치:</strong> [[${animal.careAddr}]]</p>
-        <p><strong>보호자 이름:</strong> [[${animal.chargeNm}]]</p>
-        <p><strong>보호자 연락처:</strong> [[${animal.officetel}]]</p>
-    </div>
-    <a href="javascript:history.back()" class="back-button">뒤로가기</a>
-    <a href="">관심 동물 추가</a>
+    <table class="animal-info">
+        <tr>
+            <th>항목</th>
+            <th>정보</th>
+        </tr>
+        <tr>
+            <td><strong>발견 날짜</strong></td>
+            <td>[[${animal.happenDt}]]</td>
+        </tr>
+        <tr>
+            <td><strong>발견 장소</strong></td>
+            <td>[[${animal.happenPlace}]]</td>
+        </tr>
+        <tr>
+            <td><strong>종류</strong></td>
+            <td>[[${animal.kindCd}]]</td>
+        </tr>
+        <tr>
+            <td><strong>색깔</strong></td>
+            <td>[[${animal.colorCd}]]</td>
+        </tr>
+        <tr>
+            <td><strong>나이</strong></td>
+            <td>[[${animal.age}]]</td>
+        </tr>
+        <tr>
+            <td><strong>몸무게</strong></td>
+            <td>[[${animal.weight}]]</td>
+        </tr>
+        <tr>
+            <td><strong>공고 번호</strong></td>
+            <td>[[${animal.noticeNo}]]</td>
+        </tr>
+        <tr>
+            <td><strong>공고 시작</strong></td>
+            <td>[[${animal.noticeSdt}]]</td>
+        </tr>
+        <tr>
+            <td><strong>공고 종료</strong></td>
+            <td>[[${animal.noticeEdt}]]</td>
+        </tr>
+        <tr>
+            <td><strong>상태</strong></td>
+            <td>[[${animal.processState}]]</td>
+        </tr>
+        <tr>
+            <td><strong>성별</strong></td>
+            <td>[[${animal.sexCd}]]</td>
+        </tr>
+        <tr>
+            <td><strong>중성화 여부</strong></td>
+            <td>[[${animal.neuterYn}]]</td>
+        </tr>
+        <tr>
+            <td><strong>특이점</strong></td>
+            <td>[[${animal.specialMark}]]</td>
+        </tr>
+        <tr>
+            <td><strong>보호소</strong></td>
+            <td>[[${animal.careNm}]]</td>
+        </tr>
+        <tr>
+            <td><strong>보호소 연락처</strong></td>
+            <td>[[${animal.careTel}]]</td>
+        </tr>
+        <tr>
+            <td><strong>보호소 위치</strong></td>
+            <td>[[${animal.careAddr}]]</td>
+        </tr>
+        <tr>
+            <td><strong>위치</strong></td>
+            <td>[[${animal.careAddr}]]</td>
+        </tr>
+        <tr>
+            <td><strong>보호자 이름</strong></td>
+            <td>[[${animal.chargeNm}]]</td>
+        </tr>
+        <tr>
+            <td><strong>보호자 연락처</strong></td>
+            <td>[[${animal.officetel}]]</td>
+        </tr>
+    </table>
+    <div th:align="center">
+    <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
+        <form id="myForm" th:action="@{/animal/like}" method="post">
+            <input type="hidden" name="desertionNo" id="desertionNo">
+            <button class="add-animal-button" type="submit" th:if="${!isLiked}">관심 동물 추가</button>
+        </form>
+
+        <form id="unlikeForm" th:action="@{/animal/unlike}" method="post" th:if="${isLiked}">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="desertionNo" id="unlikeDesertionNo">
+            <button class="add-animal-button" type="submit">관심 동물 취소</button>
+        </form>
+        <!--/*   <form th:if="${isLiked}" id="unlikeForm" action="/animal/unlike" method="post">
+               <input type="hidden" name="_method" value="DELETE">
+               <input type="hidden" name="desertionNo" id="desertionNo2">
+               <button class="add-animal-button" type="submit">관심 동물 취소</button>
+           </form> */-->
+
+
+   <a href="/board/register" class="leave-inquiry-button">문의 남기기</a>
+   </div>
 </div>
+<script>
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function submitFormWithParameter() {
+        var desertionNo = getParameterByName('desertionNo');
+        if (desertionNo) {
+            document.getElementById('desertionNo').value = desertionNo;
+            document.getElementById('unlikeDesertionNo').value = desertionNo;
+        } else {
+            alert('No desertionNo parameter found in URL.');
+        }
+    }
+
+    window.onload = function() {
+        submitFormWithParameter();
+    };
+
+    function unlikeAnimal() {
+        if (confirm("관심 동물을 취소하시겠습니까?")) {
+            var form = document.getElementById("unlikeForm");
+            var desertionNo = form.querySelector("input[name='desertionNo']").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("DELETE", "/animal/unlike?desertionNo=" + desertionNo, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert("관심 동물이 취소되었습니다.");
+                        // 추가 처리를 수행하거나 페이지 새로고침 등을 수행할 수 있습니다.
+                    } else {
+                        alert("오류가 발생했습니다. 관심 동물 취소에 실패하였습니다.");
+                    }
+                }
+            };
+            xhr.send();
+        }
+    }
+</script>
+
 </body>
 </html>

@@ -30,4 +30,5 @@ public class Board extends BaseEntity{
         this.content = content;
     }
 
+
 }

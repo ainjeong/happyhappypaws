@@ -57,17 +57,14 @@
 </head>
 <body>
 <div class="container">
-    <h1>Login Page</h1>
+    <h1>로그인 페이지</h1>
     <form action="/member/login" method="post" th:if="${param.logout == null}">
-        <label for="username">ID</label>
-        <input type="text" id="username" name="username" placeholder="Username">
-        <label for="password">Password</label>
+        <label for="username">아이디</label>
+        <input type="text" id="username" name="username" placeholder="ID">
+        <label for="password">비밀번호</label>
         <input type="password" id="password" name="password" placeholder="Password">
         <input type="checkbox" id="remember-me" name="remember-me">
         <label for="remember-me">자동 로그인</label>
-        <div>
-            <a href="/oauth2/authorization/kakao">KAKAO 로그인</a>
-        </div>
         <button type="submit">로그인</button>
     </form>
 </div>
