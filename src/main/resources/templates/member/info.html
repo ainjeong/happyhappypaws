@@ -1,10 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>회원 정보</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #35424a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .info-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .info {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .images-container {
+            margin-top: 20px;
+        }
+
+        .image-item {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .image-resize {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #35424a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #293538;
+        }
+    </style>
 </head>
 <body>
-
+<div class="container">
+    <header>
+        <h1>회원 정보</h1>
+    </header>
+    <div class="info-container">
+        <div class="info">아이디: <span th:text="${member.id}"></span></div>
+        <div class="info">이메일: <span th:text="${member.email}"></span></div>
+        <div class="info">닉네임: <span th:text="${member.name}"></span></div>
+    </div>
+    <h3>관심 동물 목록</h3>
+    <div class="images-container">
+        <div th:each="item : ${combinedList}" class="image-item">
+            <a th:href="@{'/animal/read?desertionNo=' + ${item.right}}">
+                <img th:src="@{'data:image/jpeg;base64,' + ${item.left}}" alt="Image" class="image-resize">
+            </a>
+        </div>
+    </div>
+    <form action="" method="post">
+        <button type="submit">회원 탈퇴</button>
+    </form>
+    <a href="/" class="home-button">홈으로</a>
+</div>
 </body>
 </html>
