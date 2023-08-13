@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>유기동물 공고</title>
+    <title>Title</title>
     <style>
         body {
             background-color: #f8f8f8;
@@ -65,14 +65,26 @@
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h1>유기동물 공고</h1><h3>사진을 클릭하세요</h3>
-
-
-    <div>
-        <a href="/" class="board-link">홈으로</a>
+    <h1>유기동물 공고</h1>
+    <h3>사진을 클릭하세요</h3>
+    <div class="search-form">
+        <form action="/animal/list" method="get">
+            <select class="form-select" name="type">
+                <option value="">----</option>
+                <option value="t" th:selected="${pageRequestDTO.type == 't'}">종류</option>
+                <option value="c" th:selected="${pageRequestDTO.type == 'c'}">지역</option>
+            </select>
+            <input type="text" class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+            <button type="submit" class="board-link">검색</button>
+        </form>
     </div>
+    <!-- 이하 생략 -->
+</div>
+
+
+</div>
+<a href="/" class="board-link">홈으로</a>
     <table>
         <thead>
         <tr>
@@ -83,10 +95,10 @@
             <th>상태</th>
         </tr>
         </thead>
-        <tbody th:with="link = ${pageRequestDTO.getLink()}">
-        <tr th:each="dto: ${responseDTO.dtoList}">
+        <tbody>
+        <tr th:each="dto: ${responseDTO.content}">
             <td>
-                <a th:href="|@{/animal/read(desertionNo =${dto.desertionNo})}&${link}|">
+                <a th:href="|@{/animal/read(desertionNo=${dto.desertionNo})}&${link}|">
                     <img th:src="@{__${dto.popfile}__}" alt="이미지" class="thumbnail">
                 </a>
             </td>
@@ -98,24 +110,27 @@
         </tbody>
     </table>
 
-    <div class="pagination">
-        <ul>
-            <li th:if="${responseDTO.prev}">
-                <a th:data-num="${responseDTO.start - 1}" th:href="@{'/animal/list?page=' + ${responseDTO.start - 1}}">Previous</a>
-            </li>
-            <th:block th:each="i: ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
-                <li th:class="${responseDTO.page == i} ? 'page-item active' : 'page-item'">
-                    <a th:data-num="${i}" th:href="@{'/animal/list?page=' + ${i}}">[[${i}]]</a>
+<div class="pagination">
+    <ul>
+        <li th:if="${responseDTO.prev}">
+            <a th:data-num="${responseDTO.number - 1}" th:href="@{'/animal/list?page=' + ${responseDTO.number - 1} + link}">Previous</a>
+        </li>
+        <th:block th:if="${responseDTO.totalPages != null and responseDTO.totalPages > 0}">
+            <th:block th:each="i: ${#numbers.sequence(responseDTO.number - 4, responseDTO.number + 4)}">
+                <li th:if="${i >= 0 and i <= responseDTO.totalPages - 1}" th:class="${responseDTO.number == i ? 'page-item active' : 'page-item'}">
+                    <a th:data-num="${i}" th:href="@{'/animal/list?page=' + ${i} + link}">[[${i}]]</a>
                 </li>
             </th:block>
-            <li th:if="${responseDTO.next}">
-                <a th:data-num="${responseDTO.end + 1}" th:href="@{'/animal/list?page=' + ${responseDTO.end + 1}}">Next</a>
-            </li>
-        </ul>
-    </div>
+        </th:block>
+        <li th:if="${responseDTO.next}">
+            <a th:data-num="${responseDTO.number + 1}" th:href="@{'/animal/list?page=' + ${responseDTO.number + 1} + link}">Next</a>
+        </li>
+    </ul>
+</div>
+
+
 
 
 </div>
-
 </body>
 </html>

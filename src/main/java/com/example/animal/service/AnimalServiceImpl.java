@@ -45,5 +45,15 @@ public class AnimalServiceImpl implements AnimalService{
                 .build();
     }
 
+    @Override
+    public Page<AnimalInfo> findByCareAddrContaining(String keyword, Pageable pageable) {
+        return animalInfoRepository.findByCareAddrContaining(keyword, pageable);
+    }
+
+    @Override
+    public Page<AnimalInfo> findByKindCdContaining(String keyword, Pageable pageable) {
+        return animalInfoRepository.findByKindCdContaining(keyword, pageable);
+    }
+
 
 }

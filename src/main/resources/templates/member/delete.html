@@ -24,7 +24,7 @@
             text-align: center;
         }
 
-        h1 {
+        h3 {
             margin: 0;
             padding: 10px 0;
         }
@@ -40,16 +40,23 @@
             border-radius: 5px;
         }
 
-        button {
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .action-button {
             background-color: #35424a;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
         }
 
-        button:hover {
+        .action-button:hover {
             background-color: #293538;
         }
     </style>
@@ -59,8 +66,10 @@
     <h3>비밀번호를 입력해 주세요.</h3>
     <form action="/member/delete" method="post">
         <input type="password" name="password" placeholder="비밀번호를 입력하세요">
-        <button type="submit">탈퇴하기</button>
-        <a href="javascript:history.back()" class="back-button">취소</a>
+        <div class="button-container">
+            <button type="submit" class="action-button">탈퇴하기</button>
+            <a href="javascript:history.back()" class="action-button">취소</a>
+        </div>
     </form>
 </div>
 </body>

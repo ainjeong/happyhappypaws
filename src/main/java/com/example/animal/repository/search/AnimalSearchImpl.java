@@ -1,9 +1,7 @@
 package com.example.animal.repository.search;
 
 import com.example.animal.domain.AnimalInfo;
-import com.example.animal.domain.Board;
 import com.example.animal.domain.QAnimalInfo;
-import com.example.animal.domain.QBoard;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
@@ -32,6 +30,7 @@ public class AnimalSearchImpl extends QuerydslRepositorySupport implements Anima
         long count = query.fetchCount();
         return null;
     }
+
 
     @Override
     public Page<AnimalInfo> searchAll(String[] types, String keyword, Pageable pageable) {

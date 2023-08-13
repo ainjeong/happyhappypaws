@@ -9,5 +9,6 @@ public interface AnimalSearch {
 
     Page<AnimalInfo> search1(Pageable pageable);
 
+
     Page<AnimalInfo> searchAll(String[] types, String keyword, Pageable pageable);
 }

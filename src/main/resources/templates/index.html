@@ -70,36 +70,37 @@
         .header-link {
             margin: 0 10px;
             font-size: 18px;
-            color: #4CAF;
+            color: darkblue;
             text-decoration: none;
         }
     </style>
 </head>
 <body>
 <header>
-<h1>Happy Paws🐾</h1>
-<div th:if="${isUserInRoleUser}">
-    <!-- Show logout button if user is authenticated -->
-    <form th:action="@{/member/info}" method="get">
-        <button type="submit">내 정보</button>
-    </form>
-    <form th:action="@{/member/logout}" method="post">
-        <button type="submit">로그아웃</button>
-    </form>
-</div>
-<div th:unless="${isUserInRoleUser}">
-    <!-- Show login link if user is not authenticated -->
-    <a th:href="@{/member/login}">로그인</a>
-    <!-- Show join link if user is not authenticated -->
-    <a th:href="@{/member/join}">회원가입</a>
-</div>
-<nav>
-<div class="header-links">
-    <a href="animal/list" class="header-link"><b>유기 동물 공고</b></a>
-    <a href="board/list" class="header-link"><b>문의 게시판</b></a>
-</div>
-</nav>
+    <h1>Happy Paws🐾</h1>
+    <div th:if="${isUserInRoleUser}" class="header-links">
+        <!-- Show logout button if user is authenticated -->
+        <form th:action="@{/member/info}" method="get">
+            <button type="submit" class="header-link">내 정보</button>
+        </form>
+        <form th:action="@{/member/logout}" method="post">
+            <button type="submit" class="header-link">로그아웃</button>
+        </form>
+    </div>
+    <div th:unless="${isUserInRoleUser}" class="header-links">
+        <!-- Show login link if user is not authenticated -->
+        <a th:href="@{/member/login}" class="header-link">로그인</a>
+        <!-- Show join link if user is not authenticated -->
+        <a th:href="@{/member/join}" class="header-link">회원가입</a>
+    </div>
+    <nav>
+        <div class="header-links">
+            <a href="animal/list" class="header-link"><b>유기 동물 공고</b></a>
+            <a href="board/list" class="header-link"><b>문의 게시판</b></a>
+        </div>
+    </nav>
 </header>
+
 
 
 <div>

@@ -55,7 +55,14 @@
             margin-top: 20px;
         }
 
-        button {
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .delete-button {
             background-color: #35424a;
             color: white;
             border: none;
@@ -64,7 +71,21 @@
             cursor: pointer;
         }
 
-        button:hover {
+        .delete-button:hover {
+            background-color: #293538;
+        }
+
+        .home-button {
+            background-color: #35424a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
             background-color: #293538;
         }
     </style>
@@ -87,11 +108,13 @@
             </a>
         </div>
     </div>
-    <form action="/member/delete" method="get">
-        <input type="hidden" name="_method" value="DELETE">
-        <button type="submit">회원 탈퇴</button>
-    </form>
-    <a href="/" class="home-button">홈으로</a>
+    <div class="button-container">
+        <form action="/member/delete" method="get">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="delete-button">회원 탈퇴</button>
+        </form>
+        <a href="/" class="home-button">홈으로</a>
+    </div>
 </div>
 </body>
 </html>

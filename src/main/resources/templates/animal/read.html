@@ -121,7 +121,7 @@
             <td>[[${animal.neuterYn}]]</td>
         </tr>
         <tr>
-            <td><strong>특이점</strong></td>
+            <td><strong>특이사항</strong></td>
             <td>[[${animal.specialMark}]]</td>
         </tr>
         <tr>
@@ -150,7 +150,7 @@
         </tr>
     </table>
     <div th:align="center">
-    <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
+        <a href="javascript:history.back()" class="back-button">뒤로 가기</a>
         <form id="myForm" th:action="@{/animal/like}" method="post">
             <input type="hidden" name="desertionNo" id="desertionNo">
             <button class="add-animal-button" type="submit" th:if="${isLiked == null || !isLiked}">관심 동물 추가</button>
@@ -168,8 +168,8 @@
            </form> */-->
 
 
-   <a href="/board/register" class="leave-inquiry-button">문의 남기기</a>
-   </div>
+        <a href="/board/register" class="leave-inquiry-button">문의 남기기</a>
+    </div>
 </div>
 <script>
     function getParameterByName(name, url) {
